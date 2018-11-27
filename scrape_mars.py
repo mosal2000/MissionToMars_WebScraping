@@ -74,8 +74,8 @@ def scrape():
     
     tables = pd.read_html(url3)
     df = tables[0]
-    df.columns = ["Profile", "Value"]
-    df.set_index('Profile', inplace=True)
+    df.columns = ["profile", "profile_value"]
+    df.set_index('profile', inplace=True)
     
     mars_fact_dict = df.to_dict()
     return_dict.update(mars_fact_dict)
@@ -110,8 +110,14 @@ def scrape():
                         
         browser.back()
         
-    for hemisphere_image_url in hemisphere_image_urls:
-        return_dict.update(hemisphere_image_url)
+#    for hemisphere_image_url in hemisphere_image_urls:
+#        return_dict.update(hemisphere_image_url)
+    
+    mars_hemispheres_dict = {"mars_hemispheres_dict":hemisphere_image_urls}
+    
+    return_dict.update(mars_hemispheres_dict)
 
+    browser.quit()
+    
     return return_dict
 
