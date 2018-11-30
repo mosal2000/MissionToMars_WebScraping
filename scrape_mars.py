@@ -74,10 +74,10 @@ def scrape():
     
     tables = pd.read_html(url3)
     df = tables[0]
-    df.columns = ["profile", "profile_value"]
-    df.set_index('profile', inplace=True)
+    df.columns = ["description", "value"]
+    df.set_index('description', inplace=True)
     
-    mars_fact_dict = df.to_dict()
+    mars_fact_dict = {"mars_fact":df.to_html()}
     return_dict.update(mars_fact_dict)
     
     """
@@ -93,7 +93,8 @@ def scrape():
     
     hemis_titles = soup.find_all('h3')
     
-    for i in range(4):
+    for i in range(len(hemis_titles)):
+        
         hemis_title = hemis_titles[i].text
         
         hemis_images = browser.find_by_tag('h3')
