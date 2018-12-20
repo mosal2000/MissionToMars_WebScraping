@@ -8,6 +8,7 @@ Created on Tue Nov 20 03:49:02 2018
 from splinter import Browser
 from bs4 import BeautifulSoup
 import pandas as pd
+import time
 
 def scrape():
     
@@ -22,6 +23,8 @@ def scrape():
 
     url = 'https://mars.nasa.gov/news/'
     browser.visit(url)
+    time.sleep(3)
+
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
 
@@ -38,6 +41,8 @@ def scrape():
     
     url1 = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(url1)
+    time.sleep(1)
+
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
     
@@ -55,7 +60,8 @@ def scrape():
     """
     url2 = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(url2)
-    
+    time.sleep(1)
+
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
     
@@ -71,7 +77,8 @@ def scrape():
     """
     url3 = 'http://space-facts.com/mars/'
     browser.visit(url3)
-    
+    time.sleep(1)
+
     tables = pd.read_html(url3)
     df = tables[0]
     df.columns = ["description", "value"]
@@ -85,7 +92,8 @@ def scrape():
     """
     url4 = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url4)
-    
+    time.sleep(1)
+
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
     
@@ -99,7 +107,8 @@ def scrape():
         
         hemis_images = browser.find_by_tag('h3')
         hemis_images[i].click()
-        
+        time.sleep(1)
+
         html = browser.html
         soup = BeautifulSoup(html, 'html.parser')
         
@@ -110,9 +119,6 @@ def scrape():
         hemisphere_image_urls.append(hemis_dict)
                         
         browser.back()
-        
-#    for hemisphere_image_url in hemisphere_image_urls:
-#        return_dict.update(hemisphere_image_url)
     
     mars_hemispheres_dict = {"mars_hemispheres_dict":hemisphere_image_urls}
     
